@@ -48,8 +48,8 @@ const addUser= async function(req,res){
       var path=""
       if(attachment_name !="" && attachment_name !=null && attachment_name != undefined){
             var {attachment}=req.files;
-            path="/uploads/user/"+attachment_name;
-            await attachment.mv(__dirname+'/../../Frontend/public'+path);
+            path="uploads/user/"+attachment_name;
+            await attachment.mv(__dirname+'/../../Frontend/public/'+path);
       }
 
       //insert or update
@@ -163,6 +163,7 @@ const addBooks= async function(req,res){
 
 
 
+
 const getOneBooks=asyncHandler( async function(req,res){
       var {id}=req.body;
       var input=[id];
@@ -187,6 +188,138 @@ const deleteBooks=asyncHandler( async function(req,res){
             return res.status(200).json({status:1,message:"Book deleted succesfull"});
       });
 });
+
+const addComment= async function(req,res){
+
+      var message=""
+      var {user_id,book_id,comment}=req.body;
+
+      var input={user_id,book_id,comment};
+      var query="INSERT INTO comment SET ?";
+      
+      await connection.query(query,input,async(error,result)=>{
+            if (error)   res.status(400).json({status:2,message:error.message})
+
+            message="Book comment added  successfull"
+            res.json({status:1,message:message});
+            return
+            
+      });
+};
+
+const addLike= async function(req,res){
+
+      var message=""
+      var {user_id,book_id,status}=req.body;
+      
+       let email_value=[user_id,book_id];
+       var email_query="SELECT COUNT(id) as total FROM like WHERE user_id=? AND book_id=?";
+       connection.query(email_query,email_value, async(error,result)=>{
+
+            var input={user_id,book_id,status}
+             if(result[0].total == 0   ){
+                  var query="INSERT INTO like SET ? "
+                  await connection.query(query,input,async(error,result)=>{
+                        if (error)  return res.status(400).json({status:2,message:error.message})
+                        console.log(result);
+      
+                        message="done"
+                       
+                        return  res.status(200).json({status:1,message:message});
+                        
+                  });
+             }else{
+                  var query="UPDATE like SET ? "
+                  await connection.query(query,input,async(error,result)=>{
+                        if (error)  return res.status(400).json({status:2,message:error.message})
+                        console.log(result);
+      
+                        message="Done";
+                        return  res.status(200).json({status:1,message:message});
+                  });
+             }
+       });
+    
+};
+
+const addFavorite= async function(req,res){
+
+      var message=""
+      var {user_id,book_id,status}=req.body;
+      
+       let email_value=[user_id,book_id];
+       var email_query="SELECT COUNT(id) as total FROM favorite WHERE user_id=? AND book_id=?";
+       connection.query(email_query,email_value, async(error,result)=>{
+
+            var input={user_id,book_id,status}
+             if(result[0].total == 0   ){
+                  var query="INSERT INTO favorite SET ? "
+                  await connection.query(query,input,async(error,result)=>{
+                        if (error)  return res.status(400).json({status:2,message:error.message})
+                        console.log(result);
+      
+                        message="done"
+                       
+                        return  res.status(200).json({status:1,message:message});
+                        
+                  });
+             }else{
+                  var query="UPDATE favorite SET ? "
+                  await connection.query(query,input,async(error,result)=>{
+                        if (error)  return res.status(400).json({status:2,message:error.message})
+                        console.log(result);
+      
+                        message="Done";
+                        return  res.status(200).json({status:1,message:message});
+                  });
+             }
+       });
+    
+};
+
+const getComments=asyncHandler( async function(req,res){
+      var {book_id}=req.body;
+      var input=[book_id];
+      var query="SELECT comment.*,users.first_name,users.last_name,users.email,users.phone FROM comment LEFT JOIN users ON comment.user_id=users.id WHERE comment.book_id=?";
+     
+      connection.query(query,input,function(error,result){
+            if (error) return  res.status(400).json({status:2,message:error.message})
+
+            return res.status(200).json({status:1,message:"Information exist ",data:result});
+      });
+});
+
+const getLike=asyncHandler( async function(req,res){
+      var {book_id,user_id}=req.body;
+      var input=[book_id,user_id];
+      var query="SELECT * FROM like WHERE book_id=? AND user_id=?";
+     
+      connection.query(query,input,function(error,result){
+            if (error) return  res.status(400).json({status:2,message:error.message})
+
+            return res.status(200).json({status:1,message:"Information exist ",data:result[0].status});
+      });
+});
+
+const getFavorite=asyncHandler( async function(req,res){
+      var {book_id,user_id}=req.body;
+      var input=[book_id,user_id];
+      var query="SELECT * FROM favorite WHERE book_id=? AND user_id=?";
+     
+      connection.query(query,input,function(error,result){
+            if (error) return  res.status(400).json({status:2,message:error.message})
+
+            return res.status(200).json({status:1,message:"Information exist "});
+      });
+});
+
+
+
+
+
+
+
+
 
 
      // role management
@@ -243,4 +376,4 @@ const getDistrict=asyncHandler( async function(req,res){
     
 
 
-module.exports={getUser,addUser,deleteUser,getOneUser,getBooks,addBooks,getOneBooks,deleteBooks,getRole,getCountry,dashboard,getDistrict,getRegion,saveSettings}
+module.exports={getUser,addUser,deleteUser,getOneUser,getBooks,addBooks,getOneBooks,deleteBooks,getRole,getCountry,dashboard,getDistrict,getRegion,saveSettings,addComment,addLike,getComments,getLike,getFavorite,addFavorite}

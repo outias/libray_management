@@ -24,7 +24,7 @@ const login=asyncHandler(  function(req,res){
       //check existance
       var encripted_password=md5(password);
       var input=[email,encripted_password];
-      var query="SELECT COUNT(id) as total,first_name FROM users WHERE email=? AND mg_password=? AND archive=0";
+      var query="SELECT COUNT(id) as total,first_name,email,last_name,phone,role_id,id FROM users WHERE email=? AND mg_password=? AND archive=0";
 
       //check
        connection.query(query,input,function(err,result){
@@ -36,7 +36,7 @@ const login=asyncHandler(  function(req,res){
                  //generate cookie
                  res.status(200)
                  res.cookie("Authorization", "token", {expire: 86400 + Date.now()})
-                 res.json({status:1,message:"Welcome Back "+result[0].first_name});
+                 res.json({status:1,message:"Welcome Back "+result[0].first_name,data:result[0]});
 
                   
 

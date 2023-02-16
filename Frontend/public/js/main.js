@@ -30,6 +30,10 @@ $("#login").on('submit',(e)=>{
             .then(data =>{
                   if(data.status==1){
                         swal("Good job!",data.message, "success");
+
+                       setSession(data.data);
+
+
                         location.replace('authentication/libray_management');
                   }else{
                         swal("Warning!",data.message, "warning")
@@ -41,6 +45,19 @@ $("#login").on('submit',(e)=>{
             })
       }
 });
+
+function setSession(data){
+
+      sessionStorage.setItem("user_access",true);
+      sessionStorage.setItem("user_id",data.id);
+      sessionStorage.setItem("first_name",data.first_name);
+      sessionStorage.setItem("last_name",data.last_name);
+      sessionStorage.setItem("email",data.email);
+      sessionStorage.setItem("phone",data.phone);
+      sessionStorage.setItem("role_id",data.role_id);
+      sessionStorage.setItem("gender",data.gender);
+      
+}
 
 function delete_row(id) {
       var table = document.getElementById("tableID");

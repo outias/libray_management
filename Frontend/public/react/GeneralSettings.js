@@ -15,6 +15,7 @@ import $, { event } from 'jquery';
 export default function GeneralSettings(){
       const [file, setFile] = useState();
       const [fileName, setFileName] = useState("");
+      const[show,setShow]=useState('none');
 
       function saveFile(e) {
             setFile(e.target.files[0]);
@@ -32,9 +33,19 @@ export default function GeneralSettings(){
       
       useEffect(()=>{
           getSystemSettings();
+          getUseSession();
       },[]);
 
-      
+      function getUseSession(){
+            var user_id=sessionStorage.getItem('user_id');
+            var role_id=sessionStorage.getItem('role_id');
+
+            if(role_id==1){ //admin
+                  setShow('block')
+            }else{
+                  setShow('none')
+            }
+      }
       
 
       function saveGeneralSetting(e){
@@ -152,7 +163,7 @@ export default function GeneralSettings(){
                                           
                                           
                                     </div>
-                                    <div class="modal-footer">
+                                    <div class="modal-footer" style={{display:show}}>
                                           <button type="submit" class="btn btn-primary" id="saveButton" >Update</button>
                                     </div>     
                               </form> 

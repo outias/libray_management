@@ -1,5 +1,6 @@
 import React,{useState,useEffect} from "react";
 import packageJson from '../../../package.json';
+import ReactDOM  from "react-dom";
 
 
 
@@ -10,17 +11,31 @@ import "datatables.net-buttons/js/buttons.print";
 import "datatables.net-buttons/js/buttons.html5";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 import $ from 'jquery';
+import BooksDetails from "./BooksDetails";
 
 
 export default function Books(){
       const[books,setBooks]=useState([]);
+      const[show,setShow]=useState('none');
 
       
       
-      useEffect(()=>{
+      useEffect(()=>{ 
           getBooks();
           getSetting();
+          getUseSession();
       },[]);
+
+      function getUseSession(){
+            var user_id=sessionStorage.getItem('user_id');
+            var role_id=sessionStorage.getItem('role_id');
+
+            if(role_id==1){ //admin
+                  setShow('block')
+            }else{
+                  setShow('none')
+            }
+      }
 
       function getSetting(){
             $(document).ready(function () {
@@ -149,6 +164,14 @@ export default function Books(){
             }
             
       }
+
+      function viewBooks(id){
+          //  document
+         var root=document.getElementById('root');
+         var dom=ReactDOM.createRoot(root);
+         dom.render(<BooksDetails id={id} />);
+
+      }
      
       function clear_input(){
             $("#saveButton").html("Save")
@@ -175,7 +198,8 @@ export default function Books(){
                              
                            </div>
                            <div class="col-12 text-end" >
-                                <button class="btn btn-success btn-sm mb-0" onClick={clear_input}  data-bs-toggle="modal" data-bs-target="#largeModal" style={{margin:20,marginEnd:10,marginTop:10,padding:10}}>Add Book</button>
+                        
+                                <button class="btn btn-success btn-sm mb-0" onClick={clear_input}  data-bs-toggle="modal" data-bs-target="#largeModal" style={{margin:20,marginEnd:10,marginTop:10,padding:10,display:show}}>Add Book</button>
                            </div>
                            
                         </div>
@@ -224,12 +248,15 @@ export default function Books(){
                                         
                                                 <div class="btn-group" role="group" aria-label="Basic outlined example">
                                                 
-                                                      <button type="button" onClick={()=>getOneBooks(item.id)} data-bs-toggle="modal" data-bs-target="#largeModal"  class="btn btn-outline-primary" title="edit">
+                                                      <button type="button" style={{display:show}} onClick={()=>getOneBooks(item.id)} data-bs-toggle="modal" data-bs-target="#largeModal"  class="btn btn-outline-primary" title="edit">
                                                       <i class="fa fa-edit text-success"></i></button>
 
 
-                                                      <button type="button" onClick={()=>deleteBooks(item.id)} class="btn btn-outline-primary deleterow" title="delete">
+                                                      <button type="button" style={{display:show}}  onClick={()=>deleteBooks(item.id)} class="btn btn-outline-primary deleterow" title="delete">
                                                       <i class="fa fa-trash text-danger"></i></button>
+                                                      
+                                                      <button type="button" onClick={()=>viewBooks(item.id)} class="btn btn-outline-primary deleterow" title="delete">
+                                                      <i class="fa fa-eye text-primary"></i></button>
 
                                           
                                                 </div>

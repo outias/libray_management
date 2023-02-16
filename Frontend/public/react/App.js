@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import ReactDOM from "react-dom";
 import $ from 'jquery';
 
@@ -7,6 +7,7 @@ import User from './User';
 import Dashboard from "./Dashboard";
 import Books from "./Books";
 import Settings from "./Settings";
+import BooksDetails from "./BooksDetails";
 
   ///package jason
 import packageJson from '../../../package.json';  
@@ -23,6 +24,8 @@ const id=document.getElementById('root');
 document.addEventListener('DOMContentLoaded',function(e){
       setClass('dashboard');
       setView(<Dashboard />);
+
+      checkSession();
 })
   
    //render our item
@@ -83,6 +86,8 @@ function logoutRequest(){
       .then(data =>{
             if(data.status==1){
                   swal("Good job!",data.message, "success");
+
+                  sessionStorage.clear();
                   location.replace(packageJson.proxy);
             }else{
                   swal("Warning!",data.message, "warning")
@@ -91,4 +96,14 @@ function logoutRequest(){
       .catch(error=>{
             swal("Error", error.message, "error")
       })
+}
+
+function checkSession(){
+      var user_access=sessionStorage.getItem('user_access');
+      var role_id=sessionStorage.getItem('role_id');
+
+      if(!user_access){
+            alert("Session Has expired, You have to login ");
+            logoutRequest();
+      }
 }

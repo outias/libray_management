@@ -1,7 +1,7 @@
 {
-  "name": "mwema",
+  "name": "library_management",
   "version": "1.0.0",
-  "description": "Mwema advocacy",
+  "description": "library_management",
   "main": "index.js",
   "proxy": "http://localhost:5555",
   "scripts": {
@@ -12,7 +12,7 @@
     "watch": "webpack serve --config webpack.config.js --mode development --mode production"
   },
   "keywords": [
-    "mwema"
+    "library_management"
   ],
   "author": "outias.k",
   "license": "ISC",

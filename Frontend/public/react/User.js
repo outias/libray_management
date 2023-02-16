@@ -17,6 +17,7 @@ export default function User(){
       const[role,setRole]=useState([]);
       const [file, setFile] = useState();
       const [fileName, setFileName] = useState("");
+      const[show,setShow]=useState('none');
  
       const saveFile = (e) => {
             setFile(e.target.files[0]);
@@ -35,7 +36,19 @@ export default function User(){
            getCountry();
            getRole();
            getSetting();
+           getUseSession();
       },[])
+
+      function getUseSession(){
+            var user_id=sessionStorage.getItem('user_id');
+            var role_id=sessionStorage.getItem('role_id');
+
+            if(role_id==1){ //admin
+                  setShow('block')
+            }else{
+                  setShow('none')
+            }
+      }
 
       function getSetting(){
             $(document).ready(function () {
@@ -266,7 +279,7 @@ export default function User(){
                              
                            </div>
                            <div class="col-12 text-end" >
-                                <button class="btn btn-success btn-sm mb-0" onClick={clear_input}data-bs-toggle="modal" data-bs-target="#largeModal" style={{margin:20,marginEnd:10,marginTop:10,padding:10}}>Add User</button>
+                                <button class="btn btn-success btn-sm mb-0" onClick={clear_input}data-bs-toggle="modal" data-bs-target="#largeModal" style={{margin:20,marginEnd:10,marginTop:10,padding:10,display:show}}>Add User</button>
                            </div>
                            
                         </div>
@@ -317,11 +330,11 @@ export default function User(){
                                         
                                                 <div class="btn-group" role="group" aria-label="Basic outlined example">
                                                 
-                                                      <button type="button" onClick={()=>getOneUser(item.id)} data-bs-toggle="modal" data-bs-target="#largeModal"  class="btn btn-outline-primary" title="edit">
+                                                      <button type="button" style={{display:show}}  onClick={()=>getOneUser(item.id)} data-bs-toggle="modal" data-bs-target="#largeModal"  class="btn btn-outline-primary" title="edit">
                                                       <i class="fa fa-edit text-success"></i></button>
 
 
-                                                      <button type="button" onClick={()=>deleteUser(item.id)} class="btn btn-outline-primary deleterow" title="delete">
+                                                      <button type="button" style={{display:show}}  onClick={()=>deleteUser(item.id)} class="btn btn-outline-primary deleterow" title="delete">
                                                       <i class="fa fa-trash text-danger"></i></button>
 
                                           

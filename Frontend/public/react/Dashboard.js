@@ -1,5 +1,13 @@
 import React,{useEffect} from "react";
+import packageJson from '../../../package.json';
 
+//Datatable Modules
+import "jquery/dist/jquery.min.js";
+import "datatables.net-dt/js/dataTables.dataTables";
+import "datatables.net-buttons/js/buttons.print";
+import "datatables.net-buttons/js/buttons.html5";
+import "datatables.net-dt/css/jquery.dataTables.min.css";
+import $ from 'jquery';
 
 //Datatable Modules
 import '../assets/css/dashboard.css';
@@ -12,7 +20,23 @@ export default function Dashboard(){
       },[])
 
       function getSetting(){
-            
+        fetch(packageJson.proxy+'/authentication/books',{
+          method:"GET",
+          headers:{
+                'Content-Type':"application/json"
+          }
+          })
+          .then(response =>response.json())
+          .then(data =>{
+              $("#users_count").html(1)
+              $("#books_count").html(1)
+              $("#like_count").html(1)
+              $("#comment_count").html(1)
+              
+          })
+          .catch(error=>{
+                swal("Error", error.message, "error")
+          })
       }
       return(
         <div class="row">
@@ -33,40 +57,36 @@ export default function Dashboard(){
                         <div class="card">
 
                           <div class="card-body text-center">
-                            <h5 class="mb-2 text-dark font-weight-normal" >Pending Requests</h5>
-                            <h2 class="mb-4 text-dark font-weight-bold">932.00</h2>
+                            <h5 class="mb-2 text-dark font-weight-normal" >Users</h5>
+                            <h2 class="mb-4 text-dark font-weight-bold" id="users_count"></h2>
                             <i class="fa fa-registered text-info" aria-hidden="true"  style={{fontSize:30}}></i>
-                            <h3 class="mb-0 font-weight-bold mt-2 text-dark">10%</h3>
                           </div>
                         </div>
                       </div>
                       <div class="col-xl-3 col-lg-6 col-sm-6 grid-margin stretch-card">
                         <div class="card">
                           <div class="card-body text-center">
-                            <h5 class="mb-2 text-dark font-weight-normal">Progress Requests</h5>
-                            <h2 class="mb-4 text-dark font-weight-bold">756,00</h2>
+                            <h5 class="mb-2 text-dark font-weight-normal">Books</h5>
+                            <h2 class="mb-4 text-dark font-weight-bold" id="books_count"></h2>
                             <i class="fa fa-eyedropper text-primary" aria-hidden="true"  style={{fontSize:30}}></i>
-                            <h3 class="mb-0 font-weight-bold mt-2 text-dark">50%</h3>
                           </div>
                         </div>
                       </div>
                       <div class="col-xl-3  col-lg-6 col-sm-6 grid-margin stretch-card">
                         <div class="card">
                           <div class="card-body text-center">
-                            <h5 class="mb-2 text-dark font-weight-normal">Rejected Requests</h5>
-                            <h2 class="mb-4 text-dark font-weight-bold">100,38</h2>
+                            <h5 class="mb-2 text-dark font-weight-normal">Comments</h5>
+                            <h2 class="mb-4 text-dark font-weight-bold" id="comment_count"></h2>
                             <i class="fa fa-close text-danger" aria-hidden="true"  style={{fontSize:30}}></i>
-                            <h3 class="mb-0 font-weight-bold mt-2 text-dark">35%</h3>
                           </div>
                         </div>
                       </div>
                       <div class="col-xl-3 col-lg-6 col-sm-6 grid-margin stretch-card">
                         <div class="card">
                           <div class="card-body text-center">
-                            <h5 class="mb-2 text-dark font-weight-normal">Completed Requests</h5>
-                            <h2 class="mb-4 text-dark font-weight-bold">4250k</h2>
+                            <h5 class="mb-2 text-dark font-weight-normal">Most Like</h5>
+                            <h2 class="mb-4 text-dark font-weight-bold" id="like_count"></h2>
                             <i class="fa fa-check-square text-success" aria-hidden="true"  style={{fontSize:30}}></i>
-                            <h3 class="mb-0 font-weight-bold mt-2 text-dark">25%</h3>
                           </div>
                         </div>
                       </div>

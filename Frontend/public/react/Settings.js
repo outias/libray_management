@@ -9,9 +9,14 @@ import User from "./User";
 
 export default function Settings(){
 
+      
+
       useEffect(()=>{
           getView("GeneralSettings");
+          
       },[])
+
+      
 
       function getView(view){
 

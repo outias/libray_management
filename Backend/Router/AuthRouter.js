@@ -21,6 +21,12 @@ router.get('/books',HomeController.getBooks);
 router.post('/books/addBooks',HomeController.addBooks);      
 router.post('/books/getOneBooks',HomeController.getOneBooks);      
 router.post('/books/deleteBooks',HomeController.deleteBooks);   
+router.post('/books/addComment',HomeController.addComment);   
+router.post('/books/addLike',HomeController.addLike);   
+router.post('/books/addFavorite',HomeController.addFavorite);   
+router.post('/books/getComments',HomeController.getComments);   
+router.post('/books/getLike',HomeController.getLike);   
+router.post('/books/getFavorite',HomeController.getFavorite);   
 
       //role
 router.get('/role',HomeController.getRole);           
