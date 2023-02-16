@@ -28,6 +28,7 @@ router.post('/books/addComment',HomeController.addComment);
 router.post('/books/addLike',HomeController.addLike);   
 router.post('/books/addFavorite',HomeController.addFavorite);   
 router.post('/books/getComments',HomeController.getComments);   
+router.get('/books/getMostLike',HomeController.getMostLike);   
 router.post('/books/getLike',HomeController.getLike);   
 router.post('/books/getFavorite',HomeController.getFavorite);   
 

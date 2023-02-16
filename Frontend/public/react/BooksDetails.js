@@ -240,7 +240,7 @@ export default function BooksDetails({id}){
 
             var day=parseInt(elapsed/(1000*60*60*24)); 
             var d = Number(elapsed);
-            var hour = Math.floor(d / 3600);
+            var hour = Math.floor(d / 24);
             var minutes = Math.floor(d % 3600 / 60);
             var second = Math.floor(d % 3600 % 60);
 

@@ -297,7 +297,18 @@ const getLike=asyncHandler( async function(req,res){
       connection.query(query,input,function(error,result){
             if (error) return  res.status(400).json({status:2,message:error.message})
 
-            return res.status(200).json({status:1,message:"Information exist ",data:result[0].status});
+            return res.status(200).json({status:1,message:"Information exist ",data:result});
+      });
+});
+
+const getMostLike=asyncHandler( async function(req,res){
+
+      var query="SELECT book_id FROM like WHERE MAX(book_id)";
+     
+      connection.query(query,input,function(error,result){
+            if (error) return  res.status(400).json({status:2,message:error.message})
+
+            return res.status(200).json({status:1,message:"Information exist ",data:result});
       });
 });
 
@@ -406,4 +417,4 @@ const countComment=asyncHandler( async function(req,res){
     
 
 
-module.exports={getUser,addUser,deleteUser,getOneUser,getBooks,addBooks,getOneBooks,deleteBooks,getRole,getCountry,dashboard,getDistrict,getRegion,saveSettings,addComment,addLike,getComments,getLike,getFavorite,addFavorite,countAuthenticateUser,countBooks,countComment}
+module.exports={getUser,addUser,deleteUser,getOneUser,getBooks,addBooks,getOneBooks,deleteBooks,getRole,getCountry,dashboard,getDistrict,getRegion,saveSettings,addComment,addLike,getComments,getLike,getFavorite,addFavorite,countAuthenticateUser,countBooks,countComment,getMostLike}
