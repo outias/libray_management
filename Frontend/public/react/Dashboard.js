@@ -16,11 +16,13 @@ export default function Dashboard(){
 
 
       useEffect(()=>{
-         getSetting();
+        countAuthenticateUser();
+         countComment();
+         countBooks();
       },[])
 
-      function getSetting(){
-        fetch(packageJson.proxy+'/authentication/books',{
+      function countAuthenticateUser(){
+        fetch(packageJson.proxy+'/authentication/countAuthenticateUser',{
           method:"GET",
           headers:{
                 'Content-Type':"application/json"
@@ -28,10 +30,44 @@ export default function Dashboard(){
           })
           .then(response =>response.json())
           .then(data =>{
-              $("#users_count").html(1)
-              $("#books_count").html(1)
-              $("#like_count").html(1)
-              $("#comment_count").html(1)
+              $("#users_count").html(data.data)
+
+              
+          })
+          .catch(error=>{
+                swal("Error", error.message, "error")
+          })
+      }
+      
+      function countBooks(){
+        fetch(packageJson.proxy+'/authentication/countBooks',{
+          method:"GET",
+          headers:{
+                'Content-Type':"application/json"
+          }
+          })
+          .then(response =>response.json())
+          .then(data =>{
+              $("#books_count").html(data.data);
+              $("#like_count").html('-');
+              
+              
+          })
+          .catch(error=>{
+                swal("Error", error.message, "error")
+          })
+      }
+      
+      function countComment(){
+        fetch(packageJson.proxy+'/authentication/countComment',{
+          method:"GET",
+          headers:{
+                'Content-Type':"application/json"
+          }
+          })
+          .then(response =>response.json())
+          .then(data =>{
+              $("#comment_count").html(data.data)
               
           })
           .catch(error=>{
@@ -59,7 +95,7 @@ export default function Dashboard(){
                           <div class="card-body text-center">
                             <h5 class="mb-2 text-dark font-weight-normal" >Users</h5>
                             <h2 class="mb-4 text-dark font-weight-bold" id="users_count"></h2>
-                            <i class="fa fa-registered text-info" aria-hidden="true"  style={{fontSize:30}}></i>
+                            <i class="fa fa-user text-info" aria-hidden="true"  style={{fontSize:30}}></i>
                           </div>
                         </div>
                       </div>
@@ -68,7 +104,7 @@ export default function Dashboard(){
                           <div class="card-body text-center">
                             <h5 class="mb-2 text-dark font-weight-normal">Books</h5>
                             <h2 class="mb-4 text-dark font-weight-bold" id="books_count"></h2>
-                            <i class="fa fa-eyedropper text-primary" aria-hidden="true"  style={{fontSize:30}}></i>
+                            <i class="fa fa-book text-primary" aria-hidden="true"  style={{fontSize:30}}></i>
                           </div>
                         </div>
                       </div>
@@ -77,7 +113,7 @@ export default function Dashboard(){
                           <div class="card-body text-center">
                             <h5 class="mb-2 text-dark font-weight-normal">Comments</h5>
                             <h2 class="mb-4 text-dark font-weight-bold" id="comment_count"></h2>
-                            <i class="fa fa-close text-danger" aria-hidden="true"  style={{fontSize:30}}></i>
+                            <i class="fa fa-comment text-danger" aria-hidden="true"  style={{fontSize:30}}></i>
                           </div>
                         </div>
                       </div>

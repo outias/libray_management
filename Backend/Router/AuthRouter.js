@@ -9,6 +9,9 @@ const LoginController=require('../Controller/LoginController');
 
     //Dashboard
 router.get('/libray_management',HomeController.dashboard);
+router.get('/countAuthenticateUser',HomeController.countAuthenticateUser);
+router.get('/countBooks',HomeController.countBooks);
+router.get('/countComment',HomeController.countComment);
  
       //user
 router.get('/user',HomeController.getUser);      

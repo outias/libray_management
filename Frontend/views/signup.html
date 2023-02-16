@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <title class="system_name"></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "stylesheet" href = "bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel = "stylesheet" href = "bower_components/bootstrap-sweetalert/dist/sweetalert.css" />
+
+    <link rel="icon" type="image/x-icon" href="assets/images/logo.png" />
+  
+   
+  </head>
+  <body>
+
+      <div class="container h-100">
+        <div class="row h-100">
+        <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
+          <div class="d-table-cell align-middle">
+
+            <div class="text-center mt-4">
+              <h1 class="h2 system_name"></h1>
+              <h4 class="lead">
+                REGISTRATION  
+              </h4>
+            </div>
+
+            <div class="card">
+              <div class="card-body">
+                <div class="m-sm-4">
+                  <div class="text-center">
+                    <img src="uploads/settings/logo.png" alt="logo" class="img-fluid rounded-circle system_attachment" width="132" height="132">
+                  </div>
+                  <form id="registerUser"  enctype="multipart/form-data"  method="post">
+                    <div class="row">
+                    <input type="hidden" class="form-control" name="hidden_unique_id" id="hidden_unique_id" />
+                          <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                      <label class="form-label">First Name<span style="color:'red';"></span>*</span></label>
+                                      <input type="text" class="form-control" 
+                                     id="firstName" 
+                                      placeholder="Enter First Name" required />
+                                </div>
+                                <div class="form-group mb-3">
+                                      <label class="form-label">Email<span style="color:'red';">*</span></label>
+                                      <input type="email" class="form-control" id="email" placeholder="Enter Email" required />
+                                </div>
+
+                                <div class="form-group mb-3">
+                                      <label class="form-label">Password<span style="color:'red';">*</span></label>
+                                      <input type="password" class="form-control" id='password' placeholder="Enter Password" required />
+                                </div>
+
+                          </div>
+                          
+                          <div class="col-md-6">
+                               
+                                <div class="form-group mb-3">
+                                      <label class="form-label">Last Name<span style="color:'red';"></span>*</span></label>
+                                      <input type="text" class="form-control" id="lastName" placeholder="Enter Last Name" required />
+                                </div>
+                                <div class="form-group mb-3">
+                                      <label class="form-label">Phone Number<span style="color:'red';"></span>*</span></label>
+                                      <input type="text" class="form-control" id="phone" placeholder="Enter Phone Number" required />
+                                </div>
+                                <div class="form-group mb-3">
+                                      <label class="form-label">Re-Password<span style="color:'red';"></span>*</span></label>
+                                      <input type="password" class="form-control" id="rePassword" placeholder="Enter Password" required />
+                                </div>
+
+                                <div class="form-group mb-3">
+                                     <label class="form-label">Gender<span style="color:'red';">*</span></label>
+                                      <br></br>
+                                      <select class="form-control select2" id="gender">
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                           
+                                      </select>
+                                </div>
+
+                          </div>
+
+
+                          <div class="modal-footer">
+                           
+                            <button type="submit" id="registerUserBtn" class="btn btn-primary"  >Save</button>
+                      </div>
+                    </div>
+              </form> 
+              <div class="custom-control custom-checkbox align-items-center">
+                <label class="custom-control-label text-small"><a href="/">Login</a></label>
+              </div>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/bootstrap-sweetalert/dist/sweetalert.min.js"></script>
+    <script src="bower_components/datatables.net/js/jquery.dataTables.min.js" ></script>
+    <script src="js/main.js"></script>
+
+
+
+
+  </body>
+</html>
+

@@ -115,7 +115,7 @@ const deleteUser=asyncHandler( async function(req,res){
 
 // books management
 const getBooks=asyncHandler( async function(req,res){
-      var query="SELECT books.* FROM books "
+      var query="SELECT books.* FROM books WHERE archive=0"
       connection.query(query,function(error,result){
             if (error) return res.status(400).json({status:2,message:error.message});
             return res.status(200).json({status:1,message:"Succefull books Exists",data:result});
@@ -372,8 +372,38 @@ const getDistrict=asyncHandler( async function(req,res){
       })
 });
 
+const countAuthenticateUser=asyncHandler( async function(req,res){
+
+      var query="SELECT COUNT(id) as total FROM users WHERE archive=0"
+      connection.query(query,function(error,result){
+            if (error) return  res.status(400).json({status:2,message:error.message});
+
+            return res.status(200).json({status:1,message:"Succefull  Exists",data:result[0].total});
+      })
+});
+
+const countBooks=asyncHandler( async function(req,res){
+
+      var query="SELECT COUNT(id) as total FROM books WHERE archive=0"
+      connection.query(query,function(error,result){
+            if (error) return  res.status(400).json({status:2,message:error.message});
+
+            return res.status(200).json({status:1,message:"Succefull  Exists",data:result[0].total});
+      })
+});
+
+const countComment=asyncHandler( async function(req,res){
+
+      var query="SELECT COUNT(id) as total FROM comment WHERE archive=0"
+      connection.query(query,function(error,result){
+            if (error) return  res.status(400).json({status:2,message:error.message});
+
+            return res.status(200).json({status:1,message:"Succefull  Exists",data:result[0].total});
+      })
+});
+
 
     
 
 
-module.exports={getUser,addUser,deleteUser,getOneUser,getBooks,addBooks,getOneBooks,deleteBooks,getRole,getCountry,dashboard,getDistrict,getRegion,saveSettings,addComment,addLike,getComments,getLike,getFavorite,addFavorite}
+module.exports={getUser,addUser,deleteUser,getOneUser,getBooks,addBooks,getOneBooks,deleteBooks,getRole,getCountry,dashboard,getDistrict,getRegion,saveSettings,addComment,addLike,getComments,getLike,getFavorite,addFavorite,countAuthenticateUser,countBooks,countComment}

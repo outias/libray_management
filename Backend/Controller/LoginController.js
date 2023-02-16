@@ -70,6 +70,52 @@ const logout=asyncHandler( function(req,res){
 })
 
 
+const registerUser= async function(req,res){
+
+      var userId=1;
+      var message=""
+      var {hidden_unique_id,firstName,lastName,email,phone,country_id,role,password,gender,attachment_name}=req.body;
+      
+
+       //check email exist
+       let email_value=[email];
+       var email_query="SELECT COUNT(email) as total FROM users WHERE email=?";
+       connection.query(email_query,email_value, async(error,result)=>{
+
+             if(result[0].total > 0 && hidden_unique_id==""  ){
+                  message="User email exist";
+                  
+                  return  res.status(400).json({status:2,message:message});
+             }else{
+                  //check image
+                  var path=""
+                  if(attachment_name !="" && attachment_name !=null && attachment_name != undefined){
+                        var {attachment}=req.files;
+                        path="uploads/user/"+attachment_name;
+                        await attachment.mv(__dirname+'/../../Frontend/public/'+path);
+                  }
+                  
+                  var input={country_id,'first_name':firstName,'gender':gender,'phone':phone,'email':email,'role_id':role,'last_name':lastName,'password':password,'mg_password':md5(password),'created_by':userId,'attachment':path};
+                  var query="INSERT INTO users SET ?"
+                  
+                  await connection.query(query,input,async(error,result)=>{
+                        if (error)  return res.status(400).json({status:2,message:error.message})
+                        console.log(result);
+
+                        message="User registered successfull"
+                        
+                        return  res.status(200).json({status:1,message:message});
+                        
+                  });
+
+             }
+       });
+    
+      
+            
+      
+};
 
 
-module.exports={login,settings,logout}
+
+module.exports={login,settings,logout,registerUser}
