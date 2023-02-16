@@ -1,6 +1,6 @@
 require('dotenv').config();
 const asyncHandler=require('express-async-handler');
-const jsonWebToken=require('jsonwebtoken');
+const jwt=require('jsonwebtoken');
 const path=require('path');
 const md5=require('md5');
 const connection=require('../../Database/MySQL');
@@ -8,17 +8,17 @@ const connection=require('../../Database/MySQL');
 //file
 const PackageJson=require('../../package.json');
 
-function generateToken(email) {
-      var secretKey=process.env.SECRET;
-      var token=jsonWebToken.sign({email},secretKey,{expiresIn:'1d',algorithm:'HS256'});
+// function generateToken(email) {
+//       var secretKey=process.env.SECURITY_JWT_SECRET;
+//       var token=jsonWebToken.sign({email},secretKey,{expiresIn:'1d'});
 
-      return token;
-}
+//       return token;
+// }
 
 
 
 //login
-const login=asyncHandler(  function(req,res){
+const login=asyncHandler( async function(req,res){
       const {email,password}=req.body;
 
       //check existance
@@ -28,18 +28,27 @@ const login=asyncHandler(  function(req,res){
 
       //check
        connection.query(query,input,function(err,result){
-            if(err) return res.status(400).json({status:2,message:err.message});
+            if(err) {
+                return res.status(400).json({status:2,message:err.message});
+            }
 
-            if(result[0].total > 0){
-                 // var token=generateToken(email)
-
-                 //generate cookie
+            else if(result[0].total > 0){
+                
+                  //     Creating jwt token
+                var secretKey=process.env.SECURITY_JWT_SECRET ;
+                    
+              //  const token=jwt.sign({email},secretKey,{expireIn:'1d'});
+                   
+              // generate cookie
                  res.status(200)
-                 res.cookie("Authorization", "token", {expire: 86400 + Date.now()})
+                 res.cookie("Authorization", secretKey, {expire: 86400 + Date.now()})
                  res.json({status:1,message:"Welcome Back "+result[0].first_name,data:result[0]});
+                    
+              
+                
+                     
 
-                  
-
+                
             }else{
                   return res.status(200).json({status:2,message:"User not Exist"});
             }

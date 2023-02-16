@@ -52,24 +52,21 @@ export default function User(){
 
       function getSetting(){
             $(document).ready(function () {
-                  setTimeout(function () {
-                      
-                        $("#vendor").DataTable({
-                              dom: 'Bfrtip',
-                              buttons: [
-                                    {
-                                          extend: "print",
-                                          className: "btn btn-success bg-success",
-                                    },{
-                                          extend: "copy",
-                                          className: "btn btn-primary bg-success",
-                                    }
-                              ],
-                              "pageLength": 10,
-                              "bDestroy": true,
-                             
-                        });
-                  },100)
+                  $("#vendor").DataTable({
+                        dom: 'Bfrtip',
+                        buttons: [
+                              {
+                                    extend: "print",
+                                    className: "btn btn-success bg-success",
+                              },{
+                                    extend: "copy",
+                                    className: "btn btn-primary bg-success",
+                              }
+                        ],
+                        "pageLength": 10,
+                        "bDestroy": true,
+                       
+                  });
             });
                 
       }
@@ -305,7 +302,7 @@ export default function User(){
                                           <td>
                                                 <div class="d-flex px-2 py-1">
                                                       <div>
-                                                      <img src="assets/img/team-3.jpg" class="avatar avatar-sm me-3 border-radius-lg" alt="user4" />
+                                                      <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="avatar avatar-sm me-3 border-radius-lg" alt="user4" />
                                                       </div>
                                                       <div class="d-flex flex-column justify-content-center">
                                                             <h6 class="mb-0 text-sm">{item.first_name+" "+item.last_name}</h6>

@@ -13,15 +13,19 @@ const isLogin=asyncHandler( function(req,res,next){
 
       if(token==="" || token===null){
           return res.status(400).redirect(PackageJson.proxy);
+      }else{
+          var secretKey=process.env.SECURITY_JWT_SECRET;
+         if(token==secretKey){
+             next();
+         }else{
+              return res.status(400).redirect(PackageJson.proxy);
+         }
       }
 
-      next();
-    //   var secretKey=process.env.SECRET;
-    //   jsonWebToken.verify(token,secretKey,function(err,data){
-    //       if(err) return res.redirect(PackageJson.proxy);
-           
-    //       next();
-    //   });
+     // next();
+     
+     
+      
 })
 
 

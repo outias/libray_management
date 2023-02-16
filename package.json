@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "library_management",
   "main": "index.js",
-  "proxy": "http://localhost:5555",
+  "proxy": "http://library.kabezatz.com",
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js  ",

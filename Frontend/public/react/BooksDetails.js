@@ -322,7 +322,7 @@ export default function BooksDetails({id}){
                                           <small class="text-muted text-sm">{item.email}</small><br/>
 
                                           {}
-                                          <small class="text-muted text-sm">{getElapseTime(item.created_on)} ago</small><br/>
+                                        
                                           </div>
                                           <p>{item.comment}</p>
                                           <div class="pad-ver">

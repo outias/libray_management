@@ -39,24 +39,21 @@ export default function Books(){
 
       function getSetting(){
             $(document).ready(function () {
-                  setTimeout(function () {
-                      
-                        $("#vendor").DataTable({
-                              dom: 'Bfrtip',
-                              buttons: [
-                                    {
-                                          extend: "print",
-                                          className: "btn btn-success bg-success",
-                                    },{
-                                          extend: "copy",
-                                          className: "btn btn-primary bg-success",
-                                    }
-                              ],
-                              "pageLength": 10,
-                              "bDestroy": true,
-                             
-                        });
-                  },100)
+                  $("#vendor").DataTable({
+                        dom: 'Bfrtip',
+                        buttons: [
+                              {
+                                    extend: "print",
+                                    className: "btn btn-success bg-success",
+                              },{
+                                    extend: "copy",
+                                    className: "btn btn-primary bg-success",
+                              }
+                        ],
+                        "pageLength": 10,
+                        "bDestroy": true,
+                       
+                  });
             });
                 
       }
