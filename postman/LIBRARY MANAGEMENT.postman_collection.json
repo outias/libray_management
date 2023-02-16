@@ -1,0 +1,88 @@
+{
+	"info": {
+		"_postman_id": "8a6aed57-6051-48a5-836a-5efca1d5dcf6",
+		"name": "LIBRARY MANAGEMENT",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25276067"
+	},
+	"item": [
+		{
+			"name": "AUTHENTICATE USERS",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "emanuel@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "Machange200;",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://library.kabezatz.com/login",
+					"protocol": "http",
+					"host": [
+						"library",
+						"kabezatz",
+						"com"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET BOOKS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://library.kabezatz.com/authentication/books",
+					"protocol": "http",
+					"host": [
+						"library",
+						"kabezatz",
+						"com"
+					],
+					"path": [
+						"authentication",
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET POPULAR BOOKS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://library.kabezatz.com/authentication/books/getMostLike",
+					"protocol": "http",
+					"host": [
+						"library",
+						"kabezatz",
+						"com"
+					],
+					"path": [
+						"authentication",
+						"books",
+						"getMostLike"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

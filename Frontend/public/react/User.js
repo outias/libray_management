@@ -35,7 +35,7 @@ export default function User(){
            getUser();
            getCountry();
            getRole();
-           getSetting();
+           
            getUseSession();
       },[])
 
@@ -50,27 +50,32 @@ export default function User(){
             }
       }
 
+
       function getSetting(){
             $(document).ready(function () {
-                  $("#vendor").DataTable({
-                        dom: 'Bfrtip',
-                        buttons: [
-                              {
-                                    extend: "print",
-                                    className: "btn btn-success bg-success",
-                              },{
-                                    extend: "copy",
-                                    className: "btn btn-primary bg-success",
-                              }
-                        ],
-                        "pageLength": 10,
-                        "bDestroy": true,
-                       
-                  });
+                  setTimeout(function () {
+                      
+                        $("#vendor").DataTable({
+                              dom: 'Bfrtip',
+                              buttons: [
+                                    {
+                                          extend: "print",
+                                          className: "btn btn-success bg-success",
+                                    },{
+                                          extend: "copy",
+                                          className: "btn btn-primary bg-success",
+                                    }
+                              ],
+                              "pageLength": 10,
+                              "bDestroy": true,
+                             
+                        });
+                  },100)
             });
                 
       }
 
+      
 
       function getUser(){
             fetch(packageJson.proxy+'/authentication/user',{
@@ -84,7 +89,7 @@ export default function User(){
 
                   console.log(data.data);
                   setUser(data.data);
-                  
+                  getSetting();
             })
             .catch(error=>{
                   swal("Error", error.message, "error")

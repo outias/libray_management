@@ -22,7 +22,6 @@ export default function Books(){
       
       useEffect(()=>{ 
           getBooks();
-          getSetting();
           getUseSession();
       },[]);
 
@@ -69,6 +68,7 @@ export default function Books(){
 
                //   console.log(data.data);
                setBooks(data.data);
+               getSetting();
                  
             })
             .catch(error=>{
